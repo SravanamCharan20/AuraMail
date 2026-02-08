@@ -14,6 +14,7 @@ const Register = () => {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/signup`, {
       method: 'POST',
+      credentials:'include',
       headers: {
         'Content-Type': 'application/json',
       },
