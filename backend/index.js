@@ -22,9 +22,6 @@ app.use(
     credentials: true,
   })
 );
-
-// routes/oauth.js
-
 app.get('/cookie/me', userAuth, (req, res) => {
   res.json({
     user: {
@@ -34,13 +31,16 @@ app.get('/cookie/me', userAuth, (req, res) => {
   });
 });
 
-
-
 // Routes
 app.use('/', userRouter);
 app.use('/googleAuth', googleAuthRouter);
 app.use('/api', emailRouter);
 
+
+
+
+
+// DB Connection
 connectDB()
   .then(() => {
     console.log('DB Connected Successfully...');
