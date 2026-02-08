@@ -32,7 +32,7 @@ export const fetchAccounts = async () => {
 };
 
 export const disconnectEmailAccount = async (accountId) => {
-  const res = await fetch(`${BASE_URL}/api/email/disconnect`, {
+  const res = await fetch(`${BASE_URL}/api/disconnect`, {
     method: 'DELETE',
     credentials: 'include',
     headers: {
