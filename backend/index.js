@@ -4,6 +4,9 @@ import connectDB from './config/db.js';
 import userRouter from './routes/userAuth.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import googleAuthRouter from './routes/googleAuth.js';
+import emailRouter from './routes/emailApis.js';
+import userAuth from './middleware/auth.js';
 
 dotenv.config();
 
@@ -13,11 +16,30 @@ const PORT = process.env.PORT || 7777;
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors())
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
+
+// routes/oauth.js
+
+app.get('/cookie/me', userAuth, (req, res) => {
+  res.json({
+    user: {
+      _id: req.user._id,
+      name : req.user.username
+    },
+  });
+});
+
 
 
 // Routes
 app.use('/', userRouter);
+app.use('/googleAuth', googleAuthRouter);
+app.use('/api', emailRouter);
 
 connectDB()
   .then(() => {

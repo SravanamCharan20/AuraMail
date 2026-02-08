@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -27,9 +27,9 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.index({ username: 1 }, { unique: true });
 
 userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
   const hashedPassword = await bcrypt.hash(this.password, 10);
   this.password = hashedPassword;
 });
