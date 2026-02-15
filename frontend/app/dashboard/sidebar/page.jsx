@@ -62,6 +62,15 @@ const Sidebar = () => {
       alert(err.message || 'Failed to disconnect account');
     }
   };
+  const handleAccount = async (id) => {
+    console.log(id);
+    try {
+      const messages = await fetch(`${BASE_URL}/messages/` + id);
+      
+    } catch (error) {
+      console.error(err);
+    }
+  }
 
   if (loading) {
     return (
@@ -111,11 +120,18 @@ const Sidebar = () => {
             {accounts.map((acc) => (
               <div
                 key={acc._id}
+                role="button"
+                tabIndex={0}
+                onClick={() => {
+                  handleAccount(acc._id);
+                }}
                 className="
                   group flex items-center gap-3 p-3 rounded-xl
                   bg-white/5 hover:bg-white/10
                   border border-white/10
                   transition
+                  cursor-pointer
+                  focus:outline-none focus:ring-2 focus:ring-blue-500/40
                 "
               >
                 {/* Avatar */}
@@ -129,19 +145,19 @@ const Sidebar = () => {
                   <p className="text-xs text-gray-400">Gmail connected</p>
                 </div>
 
-                {/* Disconnect */}
+                {/* Trash Button */}
                 <button
                   onClick={(e) => {
-                    e.stopPropagation();
+                    e.stopPropagation(); // 🔥 important
                     setSelectedAccount(acc);
                     setShowConfirm(true);
                   }}
                   className="
-                    opacity-0 group-hover:opacity-100
-                    p-2 rounded-md
-                    hover:bg-red-500/10
-                    transition cursor-pointer
-                  "
+          opacity-0 group-hover:opacity-100
+          p-2 rounded-md
+          hover:bg-red-500/10
+          transition
+        "
                   title="Disconnect Gmail"
                 >
                   <TrashIcon className="h-4 w-4 text-red-400" />

@@ -7,6 +7,7 @@ import cors from 'cors';
 import googleAuthRouter from './routes/googleAuth.js';
 import emailRouter from './routes/emailApis.js';
 import userAuth from './middleware/auth.js';
+import messageApiRouter from './routes/messagesApi.js';
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.get('/cookie/me', userAuth, (req, res) => {
 app.use('/', userRouter);
 app.use('/googleAuth', googleAuthRouter);
 app.use('/api', emailRouter);
+app.use('/messages', messageApiRouter);
 
 
 
