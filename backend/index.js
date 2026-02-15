@@ -39,9 +39,6 @@ app.use('/api', emailRouter);
 app.use('/messages', messageApiRouter);
 
 
-
-
-
 // DB Connection
 connectDB()
   .then(() => {
